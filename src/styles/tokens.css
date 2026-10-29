@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --blue-900: #0d2b6b;
+  --blue-700: #1a4fad;
+  --blue-500: #2b72f5;
+  --red-600: #cc2c28;
+  --red-800: #a02824;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+
+  /* Legacy aliases (used in global.css) */
+  --green-500: #2b72f5;
+  --gold-400: #2b72f5;
+  --gold-700: #1a4fad;
+
+  /* Surfaces & ink */
+  --surface: #ffffff;
+  --surface-sunken: #f4f7fb;
+  --surface-raised: #ffffff;
+  --ink: #0f1c2e;
+  --ink-muted: #4a5e7a;
+  --border: #d1dae8;
+  --border-strong: #7a90b0;
+
+  /* Brand palette */
+  --brand: #1a4fad;
+  --brand-hover: #0d2b6b;
+  --on-brand: #ffffff;
+  --brand-text: #1a4fad;
+  --brand-subtle: #dbeafe;
+  --on-brand-subtle: #0d2b6b;
+
+  /* Semantic */
+  --accent: #cc2c28;
+  --on-accent: #ffffff;
+  --highlight: #2b72f5;
+  --on-highlight: #ffffff;
+  --success: #127a1a;
+  --warning: #8a5a00;
+  --warning-subtle: #fbf3dc;
+  --on-warning-subtle: #8a5a00;
+  --danger: #a02824;
+  --danger-subtle: #fbeaea;
+  --on-danger-subtle: #a02824;
+  --info: #1a4fad;
+  --focus-ring: #2b72f5;
+
+  /* Sidebar */
+  --sidebar: #0d2b6b;
+  --sidebar-fg: #ffffff;
+  --sidebar-muted: rgba(255,255,255,0.55);
+  --sidebar-hover: rgba(255,255,255,0.10);
+  --sidebar-active: rgba(255,255,255,0.18);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(13, 43, 107, 0.08);
+  --shadow-md: 0 6px 16px rgba(13, 43, 107, 0.12);
+  --scrim: rgba(10, 18, 36, 0.45);
+
+  /* Typography */
+  --sans: "Open Sans", "Segoe UI", system-ui, sans-serif;
+
+  /* Spacing */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s6: 24px;
+  --s8: 32px;
+  --s12: 48px;
+  --s16: 64px;
+
+  /* Radii */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-full: 9999px;
+
+  /* Top bar height */
+  --topbar-h: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sidebar: #060e1c;
+    --sidebar-fg: #e8eef8;
+    --sidebar-muted: rgba(232,238,248,0.45);
+    --sidebar-hover: rgba(255,255,255,0.08);
+    --sidebar-active: rgba(77,142,245,0.25);
+    --surface: #0d1626;
+    --surface-sunken: #080f1d;
+    --surface-raised: #131f36;
+    --ink: #e8eef8;
+    --ink-muted: #8fa5c5;
+    --border: #1e3152;
+    --border-strong: #3a5a8a;
+    --brand: #4d8ef5;
+    --brand-hover: #76aaff;
+    --on-brand: #04112e;
+    --brand-text: #76aaff;
+    --brand-subtle: #0d2450;
+    --on-brand-subtle: #bdd4ff;
+    --accent: #f0605a;
+    --on-accent: #2a0605;
+    --success: #5bcb63;
+    --warning: #e4c05c;
+    --warning-subtle: #33290f;
+    --on-warning-subtle: #f2d88e;
+    --danger: #ff7a73;
+    --danger-subtle: #3a1412;
+    --on-danger-subtle: #ffb3ae;
+    --info: #76aaff;
+    --focus-ring: #4d8ef5;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.5);
+    --scrim: rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --sidebar: #060e1c;
+  --sidebar-fg: #e8eef8;
+  --sidebar-muted: rgba(232,238,248,0.45);
+  --sidebar-hover: rgba(255,255,255,0.08);
+  --sidebar-active: rgba(77,142,245,0.25);
+  --surface: #0d1626;
+  --surface-sunken: #080f1d;
+  --surface-raised: #131f36;
+  --ink: #e8eef8;
+  --ink-muted: #8fa5c5;
+  --border: #1e3152;
+  --border-strong: #3a5a8a;
+  --brand: #4d8ef5;
+  --brand-hover: #76aaff;
+  --on-brand: #04112e;
+  --brand-text: #76aaff;
+  --brand-subtle: #0d2450;
+  --on-brand-subtle: #bdd4ff;
+  --accent: #f0605a;
+  --on-accent: #2a0605;
+  --success: #5bcb63;
+  --warning: #e4c05c;
+  --warning-subtle: #33290f;
+  --on-warning-subtle: #f2d88e;
+  --danger: #ff7a73;
+  --danger-subtle: #3a1412;
+  --on-danger-subtle: #ffb3ae;
+  --info: #76aaff;
+  --focus-ring: #4d8ef5;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.5);
+  --scrim: rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
