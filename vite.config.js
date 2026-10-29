@@ -1,10 +1,12 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-// Origins allowed to iframe /embed/* pages. Extend for production domains.
+// Origins allowed to iframe /embed/* pages in local dev.
+// Production uses vercel.json headers instead.
 const EMBED_FRAME_ORIGINS = [
   "'self'",
   'http://localhost:3000',
+  'https://kadchmahr.vercel.app',
   'https://kadchmaportal.com',
   'https://www.kadchmaportal.com',
 ].join(' ');
