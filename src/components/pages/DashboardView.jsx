@@ -325,7 +325,8 @@ export default function DashboardView({ data }) {
         </div>
       </div>
 
-      {/* ── Row 4: Activity + Meetings + Tickets + Assets ── */}
+      {/* ── Row 4b: Activity + Meetings + Tickets + Assets ── */}
+
       <div className="grid" style={{ gridTemplateColumns: 'minmax(0,2fr) minmax(0,1fr)', gap: 'var(--s6)', alignItems: 'start' }}>
         <div className="card flush">
           <div className="chead"><h3>Recent activity</h3></div>
@@ -398,6 +399,64 @@ export default function DashboardView({ data }) {
           </div>
         </div>
       </div>
+
+      {/* ── Bottom: Leave applications table + Capitation table ── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s6)' }}>
+        <div className="card">
+          <div className="chead">
+            <h3>Recent leave applications</h3>
+            <span className="tag">last 20</span>
+          </div>
+          <SimpleTable
+            cols={['Name', 'Type', 'From', 'To', 'Status']}
+            widths={['28%', '22%', '14%', '14%', '22%']}
+            rows={[...data.leave]
+              .sort((a, b) => (b.created || '').localeCompare(a.created || ''))
+              .slice(0, 20)
+              .map(l => {
+                const staff = data.staff.find(s => s.id === l.who);
+                const statusColor = l.status === 'Approved' ? 'var(--success)'
+                  : REJECTED_STATUSES.has(l.status) ? 'var(--danger)'
+                  : 'var(--ink-muted)';
+                return [
+                  staff?.name ?? '—',
+                  l.type ?? '—',
+                  l.from ? fmtDate(l.from) : '—',
+                  l.to   ? fmtDate(l.to)   : '—',
+                  <span style={{ color: statusColor, fontWeight: 600, fontSize: 12 }}>{l.status ?? '—'}</span>,
+                ];
+              })
+            }
+          />
+          {data.leave.length === 0 && <p className="muted small" style={{ padding: 'var(--s3) 0' }}>No leave applications.</p>}
+        </div>
+
+        <div className="card">
+          <div className="chead">
+            <h3>Capitation — {capLatest?.period ?? 'latest'}</h3>
+            {capLatest && <span className="tag">last 20</span>}
+          </div>
+          {!capLatest && <p className="muted small">No capitation data.</p>}
+          {capLatest && (
+            <SimpleTable
+              cols={['Facility', 'Enrollees', 'Amount']}
+              widths={['55%', '20%', '25%']}
+              rows={capLatest.advices.slice(0, 20).map(x => [
+                x.facility ?? x.name ?? '—',
+                (x.enrollees ?? 0).toLocaleString(),
+                nairaShort((x.enrollees ?? 0) * 500),
+              ])}
+            />
+          )}
+          {capLatest && (
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: 'var(--s3)', display: 'flex', flexDirection: 'column', gap: 'var(--s2)' }}>
+              <ValRow label="Total enrollees" val={capLatest.advices.reduce((a, x) => a + (x.enrollees ?? 0), 0).toLocaleString()} />
+              <ValRow label="Total amount"    val={nairaShort(capLatestTotal)} />
+              <ValRow label="Rate / enrollee" val="₦500" muted />
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 }
@@ -445,6 +504,34 @@ function StatusRow({ label, count, color }) {
         <span>{label}</span>
       </div>
       <span style={{ fontWeight: 700 }}>{count}</span>
+    </div>
+  );
+}
+function SimpleTable({ cols, rows, widths }) {
+  return (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+        <thead>
+          <tr>
+            {cols.map((c, i) => (
+              <th key={i} style={{ textAlign: 'left', padding: '6px 8px 8px', fontWeight: 600, fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-muted)', borderBottom: '1px solid var(--border)', width: widths?.[i] }}>
+                {c}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, ri) => (
+            <tr key={ri} style={{ borderBottom: ri < rows.length - 1 ? '1px solid var(--border)' : 'none' }}>
+              {row.map((cell, ci) => (
+                <td key={ci} style={{ padding: '7px 8px', verticalAlign: 'middle', color: ci === 0 ? 'inherit' : 'var(--ink-muted)', fontWeight: ci === 0 ? 500 : 400, fontVariantNumeric: 'tabular-nums', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: ci === 0 ? 'normal' : 'nowrap', maxWidth: ci === 0 ? 160 : undefined }}>
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
